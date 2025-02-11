@@ -1,0 +1,23 @@
+import numpy as np
+from scipy.linalg import eig
+
+# Define stiffness matrix (K_n)
+K_n = np.array([[105.26, 0, 0],
+                [0, 210.53, 0],
+                [0, 0, 8]])
+
+# Define damping matrix (C_n)
+C_n = np.array([[0.01026, 0, 0],
+                [0, 0.01450, 0],
+                [0, 0, 0.00283]])
+
+# Construct system matrix A
+A_upper = np.hstack((np.zeros((3, 3)), np.eye(3)))  # Upper part of A
+A_lower = np.hstack((-K_n, -C_n))  # Lower part of A
+A = np.vstack((A_upper, A_lower))  # Combine upper and lower parts
+
+# Compute eigenvalues and eigenvectors
+eigenvalues, eigenvectors = eig(A)
+
+# Display results
+eigenvalues, eigenvectors
